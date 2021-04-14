@@ -1,12 +1,10 @@
-import { DeviceAction } from './actions/device'
-import { SceneAction } from './actions/scene'
+import { DNDAction } from './actions/dnd'
 import { StreamDeckPluginHandler } from 'streamdeck-typescript'
 
 export class Slack extends StreamDeckPluginHandler {
   constructor() {
     super()
-    new SceneAction(this, 'com.thibautsabot.streamdeck.scene')
-    new DeviceAction(this, 'com.thibautsabot.streamdeck.device')
+    new DNDAction(this, 'com.thibautsabot.streamdeck.dnd')
   }
 }
 
