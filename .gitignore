@@ -1,0 +1,5 @@
+/build
+node_modules
+DistributionTool
+coverage
+com.thibautsabot.streamdeck.smartthings.streamDeckPlugin
