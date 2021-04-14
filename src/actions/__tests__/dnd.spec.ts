@@ -36,25 +36,54 @@ describe('Test dnd action', () => {
       expect(dndInfoCall.isDone()).toBe(false)
     })
 
-    it('should get the dnd info', async () => {
+    it('should enable dnd', async () => {
       const dndReponse = {
         ok: true,
-        dnd_enabled: true,
-        next_dnd_start_ts: 1450416600,
-        next_dnd_end_ts: 1450452600,
-        snooze_enabled: true,
-        snooze_endtime: 1450416600,
-        snooze_remaining: 1196,
+        dnd_enabled: false,
       }
 
-      const dndInfoCall = nock('https://slack.com/api')
+      nock('https://slack.com/api')
         .defaultReplyHeaders(nockHeaders)
         .post('/dnd.info')
+        .reply(200, dndReponse)
+      const setSnoozeCall = nock('https://slack.com/api')
+        .defaultReplyHeaders(nockHeaders)
+        .post('/dnd.setSnooze')
+        .reply(200, dndReponse)
+      const setProfileCall = nock('https://slack.com/api')
+        .defaultReplyHeaders(nockHeaders)
+        .post('/users.profile.set')
         .reply(200, dndReponse)
 
       await dndAction.onKeyUp()
 
-      expect(dndInfoCall.isDone()).toBe(true)
+      expect(setSnoozeCall.isDone()).toBe(true)
+      expect(setProfileCall.isDone()).toBe(true)
+    })
+
+    it('should disable dnd', async () => {
+      const dndReponse = {
+        ok: true,
+        dnd_enabled: true,
+      }
+
+      nock('https://slack.com/api')
+        .defaultReplyHeaders(nockHeaders)
+        .post('/dnd.info')
+        .reply(200, dndReponse)
+      const endSnoozeCall = nock('https://slack.com/api')
+        .defaultReplyHeaders(nockHeaders)
+        .post('/dnd.endSnooze')
+        .reply(200, dndReponse)
+      const setProfileCall = nock('https://slack.com/api')
+        .defaultReplyHeaders(nockHeaders)
+        .post('/users.profile.set')
+        .reply(200, dndReponse)
+
+      await dndAction.onKeyUp()
+
+      expect(endSnoozeCall.isDone()).toBe(true)
+      expect(setProfileCall.isDone()).toBe(true)
     })
   })
 })
