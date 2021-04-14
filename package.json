@@ -30,7 +30,7 @@
     "watchify": "^4.0.0"
   },
   "dependencies": {
-    "@slack/web-api": "^6.1.0",
+    "@thibautsabot/web-api": "^6.2.0",
     "isomorphic-fetch": "^3.0.0",
     "streamdeck-typescript": "^3.1.0"
   }

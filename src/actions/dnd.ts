@@ -2,7 +2,7 @@ import { SDOnActionEvent, StreamDeckAction } from 'streamdeck-typescript'
 
 import { GlobalSettingsInterface } from '../utils/interface'
 import { Slack } from '../slack-plugin'
-import { WebClient } from '@slack/web-api'
+import { WebClient } from '@thibautsabot/web-api'
 import { isGlobalSettingsSet } from '../utils/index'
 
 export class DNDAction extends StreamDeckAction<Slack, DNDAction> {
@@ -15,9 +15,12 @@ export class DNDAction extends StreamDeckAction<Slack, DNDAction> {
     const globalSettings = this.plugin.settingsManager.getGlobalSettings<GlobalSettingsInterface>()
 
     if (isGlobalSettingsSet(globalSettings)) {
-      const client = new WebClient(globalSettings.accessToken);
+      const client = new WebClient(globalSettings.accessToken)
 
       const dndResult = await client.dnd.info()
+
+      if (dndResult.dnd_enabled) {
+      }
       console.log(dndResult)
     }
   }
