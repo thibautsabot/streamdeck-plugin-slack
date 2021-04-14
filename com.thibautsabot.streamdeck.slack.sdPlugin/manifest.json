@@ -1,11 +1,11 @@
 {
   "Actions": [
     {
-      "Icon": "icons/device",
+      "Icon": "icons/dnd",
       "Name": "DND",
       "States": [
         {
-          "Image": "icons/device_action"
+          "Image": "icons/dnd"
         }
       ],
       "Tooltip": "DND",

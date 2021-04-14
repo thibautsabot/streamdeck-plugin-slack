@@ -10,7 +10,7 @@ import nock from 'nock'
 describe('Test dnd action', () => {
   const dndAction = new DNDAction(
     new FakeStreamdeckApi() as Slack,
-    'com.thibautsabot.streamdeck.device'
+    'com.thibautsabot.streamdeck.dnd'
   )
 
   describe('onKeyUp', () => {
