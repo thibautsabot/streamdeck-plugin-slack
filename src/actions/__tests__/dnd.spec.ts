@@ -1,9 +1,9 @@
 import 'isomorphic-fetch'
 
+import { FakeStreamdeckApi, fakeKeyUpEvent } from '../../utils/fakeApi'
 import { nockHeaders, nockOptionRequests } from '../../utils'
 
 import { DNDAction } from '../dnd'
-import { FakeStreamdeckApi } from '../../utils/fakeApi'
 import { Slack } from '../../slack-plugin'
 import nock from 'nock'
 
@@ -31,7 +31,7 @@ describe('Test dnd action', () => {
         .post('/dnd.info')
         .reply(200, {})
 
-      await dndAction.onKeyUp()
+      await dndAction.onKeyUp(fakeKeyUpEvent({ context: '' }))
 
       expect(dndInfoCall.isDone()).toBe(false)
     })
@@ -55,7 +55,7 @@ describe('Test dnd action', () => {
         .post('/users.profile.set')
         .reply(200, dndReponse)
 
-      await dndAction.onKeyUp()
+      await dndAction.onKeyUp(fakeKeyUpEvent({ context: '' }))
 
       expect(setSnoozeCall.isDone()).toBe(true)
       expect(setProfileCall.isDone()).toBe(true)
@@ -80,7 +80,7 @@ describe('Test dnd action', () => {
         .post('/users.profile.set')
         .reply(200, dndReponse)
 
-      await dndAction.onKeyUp()
+      await dndAction.onKeyUp(fakeKeyUpEvent({ context: '' }))
 
       expect(endSnoozeCall.isDone()).toBe(true)
       expect(setProfileCall.isDone()).toBe(true)
